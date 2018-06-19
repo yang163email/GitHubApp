@@ -12,20 +12,19 @@ interface ILifecycle {
 
     fun onCreate(savedInstanceState: Bundle?)
 
-    fun onSaveInstanceState(outState: Bundle)
-
-    fun onViewStateRestored(savedInstanceState: Bundle?)
-
-    fun onConfigurationChanged(newConfig: Configuration)
-
-    fun onDestroy()
-
     fun onStart()
-
-    fun onStop()
 
     fun onResume()
 
     fun onPause()
 
+    fun onStop()
+
+    fun onDestroy()
+
+    fun onSaveInstanceState(outState: Bundle)
+
+    fun onViewStateRestored(savedInstanceState: Bundle?)
+
+    fun onConfigurationChanged(newConfig: Configuration)
 }

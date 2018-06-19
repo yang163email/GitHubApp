@@ -17,10 +17,12 @@ import android.provider.ContactsContract
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import com.yan.mvp.impl.MainFragment
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
 
@@ -28,6 +30,9 @@ import java.util.*
  * A login screen that offers login via email/password.
  */
 class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
+
+    protected val TAG = javaClass.simpleName
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -36,6 +41,15 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        val mainFragment = MainFragment()
+
+        Log.d(TAG, "onCreate(): " + mainFragment)
+        Log.d(TAG, "onCreate(): " + mainFragment.presenter)
+        Log.d(TAG, "onCreate(): " + mainFragment.presenter.view)
+
+        mainFragment.onResume()
+
 
         email.setText(Settings.email)
         password.setText(Settings.password)
