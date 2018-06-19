@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply from: "local.gradle"
+
 kotlin {
     experimental {
         coroutines "enable"
@@ -24,7 +26,14 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            buildConfigField "String", "testUsername", '"'+username+'"'
+            buildConfigField "String", "testPassword", '"'+password+'"'
+        }
+
         release {
+            buildConfigField "String", "testUsername", '""'
+            buildConfigField "String", "testPassword", '""'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

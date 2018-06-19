@@ -1,5 +1,6 @@
 package com.yan.github.presenter
 
+import com.yan.github.BuildConfig
 import com.yan.github.model.account.AccountManager
 import com.yan.github.view.LoginActivity
 import com.yan.mvp.impl.BasePresenter
@@ -33,7 +34,11 @@ class LoginPresenter : BasePresenter<LoginActivity>() {
 
     override fun onResume() {
         super.onResume()
-        view.onDataInit(AccountManager.username, AccountManager.password)
+        if (BuildConfig.DEBUG) {
+            view.onDataInit(BuildConfig.testUsername, BuildConfig.testPassword)
+        } else {
+            view.onDataInit(AccountManager.username, AccountManager.password)
+        }
     }
 
 }
