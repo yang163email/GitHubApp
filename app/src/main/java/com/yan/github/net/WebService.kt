@@ -2,6 +2,7 @@ package com.yan.github.net
 
 import com.yan.common.ext.ensureDir
 import com.yan.github.AppContext
+import com.yan.github.net.interceptors.AcceptInterceptor
 import com.yan.github.net.interceptors.AuthInterceptor
 import okhttp3.Cache
 import okhttp3.OkHttpClient
@@ -34,6 +35,7 @@ val retrofit: Retrofit by lazy {
                             .writeTimeout(60, TimeUnit.SECONDS)
                             .cache(Cache(cacheFile, 1024 * 1024 * 1024))
                             .addInterceptor(AuthInterceptor())
+                            .addInterceptor(AcceptInterceptor())
                             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                             .build()
             )
