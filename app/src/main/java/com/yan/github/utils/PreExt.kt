@@ -9,4 +9,5 @@ import kotlin.reflect.jvm.jvmName
  *  @date   : 2018/6/19 11:32
  *  @desc   : sp扩展
  */
-inline fun <reified R, T> R.pref(default: T) = Preference(AppContext, "", default, R::class.jvmName)
+inline fun <reified R, T> R.pref(default: T) =
+        Preference(AppContext, "", default, R::class.jvmName)

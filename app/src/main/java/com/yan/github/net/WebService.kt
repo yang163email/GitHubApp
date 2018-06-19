@@ -2,6 +2,7 @@ package com.yan.github.net
 
 import com.yan.common.ext.ensureDir
 import com.yan.github.AppContext
+import com.yan.github.net.interceptors.AuthInterceptor
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -22,7 +23,7 @@ private val cacheFile by lazy {
     File(AppContext.cacheDir, "webServiceApi").apply { ensureDir() }
 }
 
-val retrofit by lazy {
+val retrofit: Retrofit by lazy {
     Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
@@ -32,6 +33,7 @@ val retrofit by lazy {
                             .readTimeout(60, TimeUnit.SECONDS)
                             .writeTimeout(60, TimeUnit.SECONDS)
                             .cache(Cache(cacheFile, 1024 * 1024 * 1024))
+                            .addInterceptor(AuthInterceptor())
                             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                             .build()
             )
