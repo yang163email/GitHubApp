@@ -103,4 +103,8 @@ abstract class BaseActivity<out P : BasePresenter<BaseActivity<P>>> : AppCompatA
         onViewStateRestored(savedInstanceState)
         presenter.onViewStateRestored(savedInstanceState)
     }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+
+    }
 }

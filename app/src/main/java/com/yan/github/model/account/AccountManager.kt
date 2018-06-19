@@ -16,13 +16,13 @@ import rx.schedulers.Schedulers
 /**
  *  @author : yan
  *  @date   : 2018/6/19 14:41
- *  @desc   : todo
+ *  @desc   : 账户管理，包括登录、登出，存储用户数据等操作
  */
 object AccountManager {
 
     var authId by pref(-1)
     var username by pref("")
-    var passwd by pref("")
+    var password by pref("")
     var token by pref("")
 
     private var userJson by pref("")
@@ -45,7 +45,21 @@ object AccountManager {
             field = value
         }
 
-    fun isLoggedIn(): Boolean = TODO()
+    val onAccountStateChangeListeners = arrayListOf<OnAccountStateChangeListener>()
+
+    private fun notifyLogin(user: User) {
+        onAccountStateChangeListeners.forEach {
+            it.onLogin(user)
+        }
+    }
+
+    private fun notifyLogout() {
+        onAccountStateChangeListeners.forEach {
+            it.onLogout()
+        }
+    }
+
+    fun isLoggedIn(): Boolean = token.isNotEmpty()
 
     fun login() =
             AuthService.createAuthorization(AuthorizationReq())
@@ -57,29 +71,49 @@ object AccountManager {
                     .retryWhen {
                         it.flatMap {
                             if (it is AccountException) {
+                                //如果是自己定义的异常，则删除掉认证信息
                                 AuthService.deleteAuthorization(it.authorizationRsp.id)
                             } else {
+                                //直接抛出
                                 Observable.error(it)
                             }
                         }
                     }
                     .flatMap {
+                        //此时将对应数据进行保存
                         token = it.token
                         authId = it.id
                         UserService.getAuthenticateUser()
                     }
+                    .map {
+                        currentUser = it
+                        notifyLogin(it)
+                    }
 
     fun logout() =
             AuthService.deleteAuthorization(authId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
                     .doOnNext {
                         if (it.isSuccessful) {
                             authId = -1
                             token = ""
                             currentUser = null
+                            notifyLogout()
                         } else {
                             throw HttpException(it)
                         }
                     }
 
     class AccountException(val authorizationRsp: AuthorizationRsp) : Exception("Already logged in.")
+}
+
+/**
+ * 用户状态监听器
+ */
+interface OnAccountStateChangeListener {
+
+    fun onLogin(user: User)
+
+    fun onLogout()
 }

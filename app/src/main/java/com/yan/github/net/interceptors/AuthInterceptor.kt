@@ -20,7 +20,7 @@ class AuthInterceptor : Interceptor {
                     when {
                         original.url().pathSegments().contains("authorizations") -> {
                             //如果url包含authorizations,添加相应header
-                            val userCredentials = AccountManager.username + ":" + AccountManager.passwd
+                            val userCredentials = AccountManager.username + ":" + AccountManager.password
                             val auth = "Basic " + String(Base64.encode(userCredentials.toByteArray(),
                                     Base64.DEFAULT)).trim()
                             header("Authorization", auth)
