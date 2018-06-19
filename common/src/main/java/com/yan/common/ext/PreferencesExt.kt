@@ -1,4 +1,4 @@
-package com.yan.common
+package com.yan.common.ext
 
 import android.content.Context
 import kotlin.properties.ReadWriteProperty

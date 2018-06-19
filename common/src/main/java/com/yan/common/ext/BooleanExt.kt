@@ -1,9 +1,9 @@
-package com.yan.common
+package com.yan.common.ext
 
 /**
  *  @author : yan
  *  @date   : 2018/6/15 10:09
- *  @desc   : todo
+ *  @desc   : boolean扩展
  */
 /**
  * @param T 因为WithData类有一个data字段，是只读类型，所以为out

@@ -1,5 +1,8 @@
 package com.yan.common
 
+import com.yan.common.ext.no
+import com.yan.common.ext.otherwise
+import com.yan.common.ext.yes
 import org.junit.Test
 
 /**

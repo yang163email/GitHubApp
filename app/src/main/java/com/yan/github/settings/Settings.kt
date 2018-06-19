@@ -1,6 +1,7 @@
-package com.yan.github
+package com.yan.github.settings
 
-import com.yan.common.Preference
+import com.yan.common.ext.Preference
+import com.yan.github.AppContext
 
 /**
  *  @author : yan

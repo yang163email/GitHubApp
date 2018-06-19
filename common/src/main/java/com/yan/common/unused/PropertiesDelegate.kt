@@ -1,4 +1,4 @@
-package com.yan.common
+package com.yan.common.unused
 
 import java.io.File
 import java.io.FileInputStream

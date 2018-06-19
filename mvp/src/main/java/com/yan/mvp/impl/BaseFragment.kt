@@ -3,7 +3,6 @@ package com.yan.mvp.impl
 import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import com.yan.mvp.IMvpView
 import com.yan.mvp.IPresenter
 import java.lang.reflect.ParameterizedType
@@ -102,14 +101,5 @@ abstract class BaseFragment<out P : BasePresenter<BaseFragment<P>>> : Fragment()
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         presenter.onConfigurationChanged(newConfig)
-    }
-}
-
-class MainFragment : BaseFragment<MainPresenter>()
-
-class MainPresenter : BasePresenter<MainFragment>() {
-    override fun onResume() {
-        super.onResume()
-        Log.d("MainPresenter", "onResume(): called")
     }
 }

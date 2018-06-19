@@ -6,7 +6,7 @@ import android.content.ContextWrapper
 /**
  *  @author : yan
  *  @date   : 2018/6/15 11:24
- *  @desc   : todo
+ *  @desc   : 全局Application
  */
 class App : Application() {
 

@@ -1,5 +1,6 @@
 package com.yan.common
 
+import com.yan.common.unused.AbsProperties
 import org.junit.Test
 
 /**
