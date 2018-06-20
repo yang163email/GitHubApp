@@ -10,8 +10,6 @@ import com.yan.github.utils.fromJson
 import com.yan.github.utils.pref
 import retrofit2.HttpException
 import rx.Observable
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
 
 /**
  *  @author : yan
@@ -87,8 +85,6 @@ object AccountManager {
                         currentUser = it
                         notifyLogin(it)
                     }
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
 
     fun logout() =
             AuthService.deleteAuthorization(authId)
@@ -102,8 +98,6 @@ object AccountManager {
                             throw HttpException(it)
                         }
                     }
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
 
     class AccountException(val authorizationRsp: AuthorizationRsp) : Exception("Already logged in.")
 }

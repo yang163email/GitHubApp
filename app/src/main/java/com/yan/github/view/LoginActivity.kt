@@ -12,6 +12,7 @@ import com.yan.github.presenter.LoginPresenter
 import com.yan.github.utils.hideSoftInput
 import com.yan.mvp.impl.BaseActivity
 import kotlinx.android.synthetic.main.activity_login.*
+import org.jetbrains.anko.sdk15.listeners.onClick
 import org.jetbrains.anko.toast
 
 /**
@@ -23,7 +24,7 @@ class LoginActivity : BaseActivity<LoginPresenter>() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        signInBtn.setOnClickListener {
+        signInBtn.onClick {
             presenter.checkUsername(username.text.trim().toString())
                     .yes {
                         presenter.checkPassword(password.text.trim().toString())
