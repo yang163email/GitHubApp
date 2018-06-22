@@ -2,9 +2,11 @@ package com.yan.github.view
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import com.bennyhuo.tieguanyin.annotations.ActivityBuilder
 import com.yan.common.ext.otherwise
 import com.yan.common.ext.yes
 import com.yan.github.R
@@ -18,6 +20,7 @@ import org.jetbrains.anko.toast
 /**
  * A login screen that offers login via email/password.
  */
+@ActivityBuilder(flags = [Intent.FLAG_ACTIVITY_NO_HISTORY])
 class LoginActivity : BaseActivity<LoginPresenter>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

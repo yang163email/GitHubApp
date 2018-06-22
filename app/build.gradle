@@ -1,10 +1,8 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
 apply from: "local.gradle"
+apply plugin: 'kotlin-kapt'
 
 kotlin {
     experimental {
@@ -19,11 +17,15 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.yan.github"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        // https://chris.banes.me/2016/02/25/appcompat-vector/#enabling-the-flag
+        // 如果需要使用兼容库对svg的支持，就需要这样配置
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         debug {
@@ -69,4 +71,19 @@ dependencies {
     api "org.jetbrains.anko:anko-sdk15-coroutines:$anko_version"
     api "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
     api "org.jetbrains.anko:anko-appcompat-v7-listeners:$anko_version"
+
+    api 'com.github.tony19:logback-android-core:1.1.1-6'
+    api('com.github.tony19:logback-android-classic:1.1.1-6') {
+        // workaround issue #73
+        exclude group: 'com.google.android', module: 'android'
+    }
+
+    api 'cn.carbs.android:AvatarImageView:1.0.4'
+
+    api 'com.bennyhuo.tieguanyin:tieguanyin-runtime:0.3-beta'
+    kapt 'com.bennyhuo.tieguanyin:tieguanyin-compiler:0.3-beta'
+
+
+    api 'com.github.bumptech.glide:glide:4.3.1'
+    kapt 'com.github.bumptech.glide:compiler:4.3.1'
 }
